@@ -1,7 +1,9 @@
+import { ShelterStepper } from '@/components/organisms';
+
 export default function Home() {
   return (
-    <div>
-      <main>main home</main>
-    </div>
+    <main style={{ width: '100%' }}>
+      <ShelterStepper />
+    </main>
   );
 }

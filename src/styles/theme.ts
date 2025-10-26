@@ -1,5 +1,6 @@
 import type { MantineThemeOverride, CSSVariablesResolver } from '@mantine/core';
 import { colors } from './colors';
+import { typography } from './typography';
 
 export const theme: MantineThemeOverride = {
   primaryColor: 'blue',
@@ -26,6 +27,7 @@ export const theme: MantineThemeOverride = {
   },
   other: {
     colors,
+    typography,
   },
 };
 
