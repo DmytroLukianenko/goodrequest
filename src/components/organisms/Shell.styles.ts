@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
 import { AppShell, Container, Grid, Box } from '@mantine/core';
 
-export const StyledAppShell = styled(AppShell)({
+export const StyledAppShell = styled(AppShell)(({ theme }) => ({
   minHeight: '100vh',
-  backgroundColor: 'var(--color-base-surface-primary)',
-  padding: 'var(--mantine-spacing-md)',
-});
+  backgroundColor: theme.other?.colors?.base.surface.primary,
+  padding: theme.spacing?.md,
+}));
 
 export const StyledContainer = styled(Container)({
   height: '100%',
@@ -30,15 +30,14 @@ export const LeftGridCol = styled(Grid.Col)({
 export const ContentBox = styled(Box)<{ children?: React.ReactNode }>({
   display: 'flex',
   flex: 1,
-  alignItems: 'center',
   justifyContent: 'center',
 });
 
-export const RightGridCol = styled(Grid.Col)({
+export const RightGridCol = styled(Grid.Col)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: 'var(--mantine-spacing-md)',
+  padding: theme.spacing?.md,
   minHeight: '100vh',
   overflow: 'hidden',
 
@@ -47,7 +46,7 @@ export const RightGridCol = styled(Grid.Col)({
     width: 'auto',
     maxWidth: '100%',
     objectFit: 'contain',
-    borderRadius: 'var(--mantine-radius-lg)',
+    borderRadius: theme.radius?.lg,
     display: 'block',
   },
-});
+}));

@@ -6,7 +6,7 @@ import { ActionIcon } from '@mantine/core';
 import { Icon } from '@/components/atoms';
 import { Link } from '@/components/atoms';
 import { StyledFooter, IconsContainer, LinksContainer, ActionsRow } from './Footer.styles';
-import { FOOTER_ICONS, FOOTER_LINKS } from './Footer.constants';
+import { FOOTER_ICONS, FOOTER_LINKS } from '@/constants/footer.constants';
 
 export const Footer: FC = () => {
   return (

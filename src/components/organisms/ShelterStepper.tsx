@@ -1,7 +1,8 @@
 'use client';
 import { FC, useState } from 'react';
 import { Stepper } from '@/components/molecules';
-import { STEPPER_STEPS } from '@/components/molecules/Stepper.constants';
+import { STEPPER_STEPS } from '@/constants/stepper.constants';
+import { ShelterSelection } from './ShelterSelection';
 
 export const ShelterStepper: FC = () => {
   const [active, setActive] = useState(0);
@@ -12,7 +13,7 @@ export const ShelterStepper: FC = () => {
   const renderStepContent = () => {
     switch (active) {
       case 0:
-        return <div>Výber útulku content</div>;
+        return <ShelterSelection />;
       case 1:
         return <div>Osobné údaje content</div>;
       case 2:

@@ -5,11 +5,11 @@ import { typography } from './typography';
 export const theme: MantineThemeOverride = {
   primaryColor: 'blue',
   spacing: {
-    xs: '8px',
-    sm: '12px',
-    md: '20px',
-    lg: '28px',
-    xl: '36px',
+    xs: '4px',
+    sm: '8px',
+    md: '12px',
+    lg: '20px',
+    xl: '28px',
   },
   radius: {
     xs: '4px',
