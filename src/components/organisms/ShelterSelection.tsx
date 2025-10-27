@@ -2,8 +2,10 @@
 
 import { FC, useState, useMemo } from 'react';
 import { useDebounce } from 'use-debounce';
+import { Flex } from '@mantine/core';
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { SegmentedControl } from '@/components/molecules';
-import { Title, SearchSelect } from '@/components/atoms';
+import { Title, SearchSelect, Button } from '@/components/atoms';
 import { useFormContext } from '@/contexts/FormContext';
 import { useShelters } from '@/hooks/useShelters';
 import { AmountSelection } from './AmountSelection';
@@ -14,7 +16,13 @@ const enum ShelterSelections {
   all = 'all',
 }
 
-export const ShelterSelection: FC = () => {
+type ShelterSelectionProps = {
+  currentStep: number;
+  onNext: () => void;
+  onPrev: () => void;
+};
+
+export const ShelterSelection: FC<ShelterSelectionProps> = ({ currentStep, onNext, onPrev }) => {
   const [shelterSelection, setShelterSelection] = useState<ShelterSelections>(ShelterSelections.one);
   const { selectedShelterId, setSelectedShelterId, searchValue, setSearchValue } = useFormContext();
 
@@ -25,6 +33,24 @@ export const ShelterSelection: FC = () => {
   const items = useMemo(() => shelters?.map((s) => ({ label: s.name, value: String(s.id) })) ?? [], [shelters]);
 
   const isRequiredField = shelterSelection === ShelterSelections.one;
+
+  const navigationButtons = [
+    {
+      label: 'Späť',
+      variant: 'secondary' as const,
+      icon: <FiArrowLeft size={20} />,
+      iconPosition: 'left' as const,
+      onClick: onPrev,
+      disabled: currentStep === 0,
+    },
+    {
+      label: 'Pokračovať',
+      variant: 'primary' as const,
+      icon: <FiArrowRight size={20} />,
+      iconPosition: 'right' as const,
+      onClick: onNext,
+    },
+  ];
 
   return (
     <ShelterSelectionContainer>
@@ -52,6 +78,21 @@ export const ShelterSelection: FC = () => {
         required={isRequiredField}
       />
       <AmountSelection />
+
+      <Flex justify='space-between' w='100%' mt='auto'>
+        {navigationButtons.map((button) => (
+          <Button
+            key={button.label}
+            variant={button.variant}
+            leftSection={button.iconPosition === 'left' ? button.icon : undefined}
+            rightSection={button.iconPosition === 'right' ? button.icon : undefined}
+            disabled={button.disabled}
+            onClick={button.onClick}
+          >
+            {button.label}
+          </Button>
+        ))}
+      </Flex>
     </ShelterSelectionContainer>
   );
 };

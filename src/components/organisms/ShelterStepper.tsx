@@ -13,7 +13,7 @@ export const ShelterStepper: FC = () => {
   const renderStepContent = () => {
     switch (active) {
       case 0:
-        return <ShelterSelection />;
+        return <ShelterSelection currentStep={active} onNext={nextStep} onPrev={prevStep} />;
       case 1:
         return <div>Osobné údaje content</div>;
       case 2:
@@ -27,8 +27,6 @@ export const ShelterStepper: FC = () => {
     <div>
       <Stepper steps={STEPPER_STEPS} active={active} onStepClick={setActive} />
       <div>{renderStepContent()}</div>
-      <button onClick={nextStep}>next step</button>
-      <button onClick={prevStep}>prev step</button>
     </div>
   );
 };
