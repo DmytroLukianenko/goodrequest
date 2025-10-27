@@ -5,14 +5,21 @@ import { createContext, useContext, useState, FC, ReactNode } from 'react';
 type FormContextValue = {
   selectedShelterId: string | null;
   setSelectedShelterId: (id: string | null) => void;
+  searchValue: string;
+  setSearchValue: (value: string) => void;
 };
 
 const FormContext = createContext<FormContextValue | undefined>(undefined);
 
 export const FormProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [selectedShelterId, setSelectedShelterId] = useState<string | null>(null);
+  const [searchValue, setSearchValue] = useState('');
 
-  return <FormContext.Provider value={{ selectedShelterId, setSelectedShelterId }}>{children}</FormContext.Provider>;
+  return (
+    <FormContext.Provider value={{ selectedShelterId, setSelectedShelterId, searchValue, setSearchValue }}>
+      {children}
+    </FormContext.Provider>
+  );
 };
 
 export const useFormContext = (): FormContextValue => {

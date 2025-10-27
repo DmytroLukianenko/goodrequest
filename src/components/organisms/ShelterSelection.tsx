@@ -1,4 +1,5 @@
 'use client';
+
 import { FC, useState, useMemo } from 'react';
 import { useDebounce } from 'use-debounce';
 import { SegmentedControl } from '@/components/molecules';
@@ -14,8 +15,7 @@ const enum ShelterSelections {
 
 export const ShelterSelection: FC = () => {
   const [shelterSelection, setShelterSelection] = useState<ShelterSelections>(ShelterSelections.one);
-  const [searchValue, setSearchValue] = useState('');
-  const { selectedShelterId, setSelectedShelterId } = useFormContext();
+  const { selectedShelterId, setSelectedShelterId, searchValue, setSearchValue } = useFormContext();
 
   const [debouncedSearch] = useDebounce(searchValue, 300);
 
@@ -23,9 +23,11 @@ export const ShelterSelection: FC = () => {
 
   const items = useMemo(() => shelters?.map((s) => ({ label: s.name, value: String(s.id) })) ?? [], [shelters]);
 
+  const isRequiredField = shelterSelection === ShelterSelections.one;
+
   return (
     <ShelterSelectionContainer>
-      <Title size='display2' as='h2'>
+      <Title size="display2" as="h2">
         Vyberte si možnosť, ako chcete pomôcť
       </Title>
       <SegmentedControl
@@ -37,8 +39,8 @@ export const ShelterSelection: FC = () => {
         ]}
       />
       <SearchSelect
-        label={<SelectLabel />}
-        placeholder='Vyberte útulok zo zoznamu'
+        label={<SelectLabel isRequired={isRequiredField} />}
+        placeholder="Vyberte útulok zo zoznamu"
         value={selectedShelterId}
         onChange={setSelectedShelterId}
         searchValue={searchValue}
@@ -46,16 +48,17 @@ export const ShelterSelection: FC = () => {
         data={items}
         isLoading={isLoading}
         isError={isError}
+        required={isRequiredField}
       />
     </ShelterSelectionContainer>
   );
 };
 
-function SelectLabel() {
+function SelectLabel({ isRequired }: { isRequired: boolean }) {
   return (
     <>
       <span style={{ fontSize: 14, fontWeight: 500, color: 'inherit' }}>Útulok</span>{' '}
-      <span style={{ fontSize: 13, color: 'var(--color-base-content-quaternary)' }}>(Nepovinné)</span>
+      {!isRequired && <span style={{ fontSize: 13, color: 'var(--color-base-content-quaternary)' }}>(Nepovinné)</span>}
     </>
   );
 }
