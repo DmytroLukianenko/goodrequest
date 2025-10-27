@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styled from '@emotion/styled';
 
-export const StyledImage = styled(Image)({
+export const StyledImage = styled(Image)(() => ({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -10,4 +10,4 @@ export const StyledImage = styled(Image)({
   '&:hover': {
     transform: 'scale(1.1)',
   },
-});
+}));

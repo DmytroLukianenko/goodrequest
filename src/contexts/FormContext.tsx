@@ -7,6 +7,8 @@ type FormContextValue = {
   setSelectedShelterId: (id: string | null) => void;
   searchValue: string;
   setSearchValue: (value: string) => void;
+  amount: number;
+  setAmount: (amount: number) => void;
 };
 
 const FormContext = createContext<FormContextValue | undefined>(undefined);
@@ -14,12 +16,9 @@ const FormContext = createContext<FormContextValue | undefined>(undefined);
 export const FormProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [selectedShelterId, setSelectedShelterId] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState('');
+  const [amount, setAmount] = useState<number>(10);
 
-  return (
-    <FormContext.Provider value={{ selectedShelterId, setSelectedShelterId, searchValue, setSearchValue }}>
-      {children}
-    </FormContext.Provider>
-  );
+  return <FormContext.Provider value={{ selectedShelterId, setSelectedShelterId, searchValue, setSearchValue, amount, setAmount }}>{children}</FormContext.Provider>;
 };
 
 export const useFormContext = (): FormContextValue => {

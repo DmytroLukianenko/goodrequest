@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import NextLink from 'next/link';
 
-export const StyledLink = styled(NextLink)({
+export const StyledLink = styled(NextLink)(() => ({
   color: 'var(--color-base-content-primary)',
   textDecoration: 'none',
   fontSize: '14px',
@@ -10,4 +10,4 @@ export const StyledLink = styled(NextLink)({
   '&:hover': {
     color: 'var(--color-base-action-primary-default)',
   },
-});
+}));

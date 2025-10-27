@@ -6,6 +6,7 @@ import { SegmentedControl } from '@/components/molecules';
 import { Title, SearchSelect } from '@/components/atoms';
 import { useFormContext } from '@/contexts/FormContext';
 import { useShelters } from '@/hooks/useShelters';
+import { AmountSelection } from './AmountSelection';
 import { ShelterSelectionContainer } from './ShelterSelection.styles';
 
 const enum ShelterSelections {
@@ -27,7 +28,7 @@ export const ShelterSelection: FC = () => {
 
   return (
     <ShelterSelectionContainer>
-      <Title size="display2" as="h2">
+      <Title size='display2' as='h2'>
         Vyberte si možnosť, ako chcete pomôcť
       </Title>
       <SegmentedControl
@@ -40,7 +41,7 @@ export const ShelterSelection: FC = () => {
       />
       <SearchSelect
         label={<SelectLabel isRequired={isRequiredField} />}
-        placeholder="Vyberte útulok zo zoznamu"
+        placeholder='Vyberte útulok zo zoznamu'
         value={selectedShelterId}
         onChange={setSelectedShelterId}
         searchValue={searchValue}
@@ -50,6 +51,7 @@ export const ShelterSelection: FC = () => {
         isError={isError}
         required={isRequiredField}
       />
+      <AmountSelection />
     </ShelterSelectionContainer>
   );
 };

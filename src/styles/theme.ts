@@ -9,7 +9,7 @@ export const theme: MantineThemeOverride = {
     sm: '8px',
     md: '12px',
     lg: '20px',
-    xl: '28px',
+    xl: '24px',
   },
   radius: {
     xs: '4px',
