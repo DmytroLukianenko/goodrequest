@@ -3,6 +3,8 @@
 import { createTheme, MantineProvider } from '@mantine/core';
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 import { theme as themeOverride, cssVariablesResolver } from '@/styles/theme';
+import { QueryProvider } from './QueryProvider';
+import { FormProvider } from '@/contexts/FormContext';
 
 const theme = createTheme(themeOverride);
 
@@ -14,8 +16,12 @@ declare module '@emotion/react' {
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <MantineProvider theme={theme} cssVariablesResolver={cssVariablesResolver}>
-      <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>
-    </MantineProvider>
+    <QueryProvider>
+      <MantineProvider theme={theme} cssVariablesResolver={cssVariablesResolver}>
+        <EmotionThemeProvider theme={theme}>
+          <FormProvider>{children}</FormProvider>
+        </EmotionThemeProvider>
+      </MantineProvider>
+    </QueryProvider>
   );
 }
