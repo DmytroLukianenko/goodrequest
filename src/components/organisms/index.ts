@@ -6,3 +6,4 @@ export { ShelterStepper } from './ShelterStepper';
 export { AmountSelection } from './AmountSelection';
 export { ShelterSelection } from './ShelterSelection';
 export { ProjectStats } from './ProjectStats';
+export { ContactInfo } from './ContactInfo';
