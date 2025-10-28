@@ -18,6 +18,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'GoodRequst test task',
   description: 'by Dmytro Lukianenko',
+  openGraph: {
+    title: 'GoodRequst test task',
+    description: 'by Dmytro Lukianenko',
+    type: 'website',
+    locale: 'sk_SK',
+    siteName: 'GoodRequst',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'GoodRequst test task',
+    description: 'by Dmytro Lukianenko',
+  },
 };
 
 export default function RootLayout({
@@ -26,9 +38,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' {...mantineHtmlProps}>
+    <html lang='sk' {...mantineHtmlProps}>
       <head>
         <ColorSchemeScript />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppProviders>{children}</AppProviders>

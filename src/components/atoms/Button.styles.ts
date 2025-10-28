@@ -38,5 +38,10 @@ export const StyledButton = styled(MantineButton)<ButtonProps>(({ theme, variant
       cursor: 'not-allowed',
       pointerEvents: 'none',
     },
+
+    '@media (max-width: 768px)': {
+      width: '100%',
+      ...typography?.sm.medium,
+    },
   };
 });

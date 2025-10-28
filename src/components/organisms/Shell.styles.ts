@@ -5,6 +5,10 @@ export const StyledAppShell = styled(AppShell)(({ theme }) => ({
   minHeight: '100vh',
   backgroundColor: theme.other?.colors?.base.surface.primary,
   padding: '20px',
+
+  '@media (max-width: 768px)': {
+    padding: theme.spacing?.md,
+  },
 }));
 
 export const StyledContainer = styled(Container)({
@@ -20,13 +24,18 @@ export const StyledGrid = styled(Grid)({
   minHeight: '100vh',
 });
 
-export const LeftGridCol = styled(Grid.Col)({
+export const LeftGridCol = styled(Grid.Col)(({ theme }) => ({
   minHeight: '1024px',
   padding: '20px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-});
+
+  '@media (max-width: 768px)': {
+    padding: theme.spacing?.md,
+    minHeight: 'auto',
+  },
+}));
 
 export const ContentBox = styled(Box)<{ children?: React.ReactNode }>({
   display: 'flex',
@@ -49,5 +58,9 @@ export const RightGridCol = styled(Grid.Col)(({ theme }) => ({
     objectFit: 'contain',
     borderRadius: theme.radius?.lg,
     display: 'block',
+  },
+
+  '@media (max-width: 768px)': {
+    display: 'none',
   },
 }));

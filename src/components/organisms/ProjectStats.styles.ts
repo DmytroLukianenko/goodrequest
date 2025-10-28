@@ -12,6 +12,13 @@ export const StatsContainer = styled(Flex)<StatsContainerProps>(({ theme }) => (
   gap: '16px',
   justifyContent: 'center',
   alignItems: 'center',
+
+  '@media (max-width: 768px)': {
+    flexDirection: 'column',
+    paddingTop: theme.spacing?.xl,
+    paddingBottom: theme.spacing?.xl,
+    gap: theme.spacing?.lg,
+  },
 }));
 
 type StatColumnProps = FlexProps;

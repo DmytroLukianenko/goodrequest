@@ -8,4 +8,8 @@ export const StyledTitle = styled.h1<{ size: TypographySize; weight: TypographyW
   margin: 0,
   ...typography[size][weight],
   color,
+
+  '@media (max-width: 768px)': {
+    textAlign: 'center',
+  },
 }));

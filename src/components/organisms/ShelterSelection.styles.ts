@@ -5,7 +5,7 @@ export const ShelterSelectionContainer = styled.div(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing?.xxl,
   width: '100%',
-  minWidth: 0, // Allow shrinking below content size
+  minWidth: 0,
 
   '@media (max-width: 768px)': {
     gap: theme.spacing?.lg,
@@ -23,4 +23,5 @@ export const LabelText = styled.span({
 export const OptionalText = styled.span(({ theme }) => ({
   fontSize: 13,
   color: theme.other?.colors?.base?.content?.quaternary,
+  whiteSpace: 'nowrap',
 }));

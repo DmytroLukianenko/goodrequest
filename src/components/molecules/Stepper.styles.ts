@@ -10,9 +10,12 @@ export const StyledStepper = styled(MantineStepper)(({ theme }) => {
 
     '.mantine-Stepper-stepLabel': {
       ...typography?.md.regular,
+      wordWrap: 'break-word',
+      overflowWrap: 'break-word',
     },
     '.mantine-Stepper-stepIcon': {
       ...typography?.md.regular,
+      flexShrink: 0,
     },
     '.mantine-Stepper-step .mantine-Stepper-stepIcon': {
       backgroundColor: 'transparent',
@@ -34,6 +37,18 @@ export const StyledStepper = styled(MantineStepper)(({ theme }) => {
     },
     '.mantine-Stepper-separatorActive': {
       backgroundColor: colors?.base.action.primary.default,
+    },
+
+    '@media (max-width: 768px)': {
+      '.mantine-Stepper-stepLabel': {
+        ...typography?.sm.regular,
+        fontSize: '12px',
+      },
+      '.mantine-Stepper-stepIcon': {
+        width: '28px',
+        height: '28px',
+        minWidth: '28px',
+      },
     },
   };
 });

@@ -38,7 +38,7 @@ export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, o
   ];
 
   return (
-    <Flex justify='space-between' w='100%' mt='auto'>
+    <Flex justify='space-between' w='100%' mt='auto' direction={{ base: 'column', sm: 'row' }} gap={{ base: 'md', sm: 0 }}>
       {navigationButtons.map((button) => (
         <Button
           key={button.label}
