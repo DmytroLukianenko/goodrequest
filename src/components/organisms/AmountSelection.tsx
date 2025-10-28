@@ -8,7 +8,8 @@ import { useFormContext } from '@/contexts/FormContext';
 const PRESET_AMOUNTS = [5, 10, 20, 30, 50, 100];
 
 export const AmountSelection: FC = () => {
-  const { amount, setAmount } = useFormContext();
+  const { state, setAmount } = useFormContext();
+  const amount = state.amount;
 
   return (
     <Flex direction='column' gap={24}>

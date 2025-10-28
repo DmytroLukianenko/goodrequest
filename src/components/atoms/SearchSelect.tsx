@@ -20,6 +20,7 @@ type SearchSelectProps = {
   isLoading?: boolean;
   isError?: boolean;
   searchValue?: string;
+  error?: string;
 };
 
 export const SearchSelect: FC<SearchSelectProps> = ({
@@ -33,6 +34,7 @@ export const SearchSelect: FC<SearchSelectProps> = ({
   isLoading,
   isError,
   searchValue,
+  error,
 }) => {
   return (
     <StyledSearchSelect
@@ -49,6 +51,7 @@ export const SearchSelect: FC<SearchSelectProps> = ({
       clearable
       required={required}
       disabled={isError}
+      error={error}
     />
   );
 };

@@ -1,22 +1,60 @@
 'use client';
 
-import { FC, useState, useMemo } from 'react';
+import { FC, useMemo, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useDebounce } from 'use-debounce';
 import { SegmentedControl } from '@/components/molecules';
 import { Title, SearchSelect } from '@/components/atoms';
 import { useFormContext } from '@/contexts/FormContext';
 import { useShelters } from '@/hooks/useShelters';
 import { AmountSelection } from './AmountSelection';
-import { ShelterSelectionContainer } from './ShelterSelection.styles';
+import { ShelterSelectionContainer, LabelText, OptionalText } from './ShelterSelection.styles';
+import { shelterSelectionSchema, type ShelterSelectionFormData } from '@/validators/shelterSelection.validator';
 
 const enum ShelterSelections {
   one = 'one',
   all = 'all',
 }
 
-export const ShelterSelection: FC = () => {
-  const [shelterSelection, setShelterSelection] = useState<ShelterSelections>(ShelterSelections.one);
-  const { selectedShelterId, setSelectedShelterId, searchValue, setSearchValue } = useFormContext();
+type ShelterSelectionProps = {
+  onValidationChange?: (isValid: boolean) => void;
+};
+
+export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange }) => {
+  const { state, setSelectedShelterId, setSearchValue, setShelterSelectionType, registerTrigger } = useFormContext();
+  const { selectedShelterId, searchValue, shelterSelectionType, amount } = state;
+
+  const {
+    control,
+    formState: { errors, isValid },
+    watch,
+    trigger,
+  } = useForm<ShelterSelectionFormData>({
+    resolver: zodResolver(shelterSelectionSchema),
+    defaultValues: {
+      shelterSelectionType,
+      selectedShelterId,
+      amount,
+    },
+    mode: 'onChange',
+  });
+
+  const watchedShelterSelectionType = watch('shelterSelectionType');
+
+  useEffect(() => {
+    onValidationChange?.(isValid);
+  }, [isValid, onValidationChange]);
+
+  useEffect(() => {
+    registerTrigger(trigger);
+  }, [registerTrigger, trigger]);
+
+  useEffect(() => {
+    if (watchedShelterSelectionType === 'all') {
+      trigger('selectedShelterId');
+    }
+  }, [watchedShelterSelectionType, trigger]);
 
   const [debouncedSearch] = useDebounce(searchValue, 300);
 
@@ -24,32 +62,51 @@ export const ShelterSelection: FC = () => {
 
   const items = useMemo(() => shelters?.map((s) => ({ label: s.name, value: String(s.id) })) ?? [], [shelters]);
 
-  const isRequiredField = shelterSelection === ShelterSelections.one;
+  const isRequiredField = watchedShelterSelectionType === 'one';
 
   return (
     <ShelterSelectionContainer>
       <Title size='display2' as='h2'>
         Vyberte si možnosť, ako chcete pomôcť
       </Title>
-      <SegmentedControl
-        value={shelterSelection.toString()}
-        onChange={(value) => setShelterSelection(value as ShelterSelections)}
-        data={[
-          { label: 'Prispieť konkrétnemu útulku', value: ShelterSelections.one },
-          { label: 'Prispieť celej nadácii', value: ShelterSelections.all },
-        ]}
+      <Controller
+        name='shelterSelectionType'
+        control={control}
+        render={({ field }) => (
+          <SegmentedControl
+            value={field.value}
+            onChange={(value) => {
+              field.onChange(value);
+              setShelterSelectionType(value as 'one' | 'all');
+            }}
+            data={[
+              { label: 'Prispieť konkrétnemu útulku', value: ShelterSelections.one },
+              { label: 'Prispieť celej nadácii', value: ShelterSelections.all },
+            ]}
+          />
+        )}
       />
-      <SearchSelect
-        label={<SelectLabel isRequired={isRequiredField} />}
-        placeholder='Vyberte útulok zo zoznamu'
-        value={selectedShelterId}
-        onChange={setSelectedShelterId}
-        searchValue={searchValue}
-        onSearchChange={setSearchValue}
-        data={items}
-        isLoading={isLoading}
-        isError={isError}
-        required={isRequiredField}
+      <Controller
+        name='selectedShelterId'
+        control={control}
+        render={({ field }) => (
+          <SearchSelect
+            label={<SelectLabel isRequired={isRequiredField} />}
+            placeholder='Vyberte útulok zo zoznamu'
+            value={field.value}
+            onChange={(value) => {
+              field.onChange(value);
+              setSelectedShelterId(value);
+            }}
+            searchValue={searchValue}
+            onSearchChange={setSearchValue}
+            data={items}
+            isLoading={isLoading}
+            isError={isError}
+            required={isRequiredField}
+            error={errors.selectedShelterId?.message}
+          />
+        )}
       />
       <AmountSelection />
     </ShelterSelectionContainer>
@@ -59,8 +116,8 @@ export const ShelterSelection: FC = () => {
 function SelectLabel({ isRequired }: { isRequired: boolean }) {
   return (
     <>
-      <span style={{ fontSize: 14, fontWeight: 500, color: 'inherit' }}>Útulok</span>{' '}
-      {!isRequired && <span style={{ fontSize: 13, color: 'var(--color-base-content-quaternary)' }}>(Nepovinné)</span>}
+      <LabelText>Útulok</LabelText>{' '}
+      {!isRequired && <OptionalText>(Nepovinné)</OptionalText>}
     </>
   );
 }
