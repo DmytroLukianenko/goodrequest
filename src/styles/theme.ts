@@ -10,6 +10,7 @@ export const theme: MantineThemeOverride = {
     md: '12px',
     lg: '20px',
     xl: '24px',
+    xxl: '40px',
   },
   radius: {
     xs: '4px',
@@ -23,7 +24,7 @@ export const theme: MantineThemeOverride = {
     sm: '48em',
     md: '62em',
     lg: '75em',
-    xl: '88em',
+    xl: '1440px',
   },
   other: {
     colors,

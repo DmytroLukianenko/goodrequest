@@ -4,13 +4,14 @@ import { AppShell, Container, Grid, Box } from '@mantine/core';
 export const StyledAppShell = styled(AppShell)(({ theme }) => ({
   minHeight: '100vh',
   backgroundColor: theme.other?.colors?.base.surface.primary,
-  padding: theme.spacing?.md,
+  padding: '20px',
 }));
 
 export const StyledContainer = styled(Container)({
   height: '100%',
   display: 'flex',
   padding: 0,
+  maxWidth: '1440px',
 });
 
 export const StyledGrid = styled(Grid)({
@@ -21,7 +22,7 @@ export const StyledGrid = styled(Grid)({
 
 export const LeftGridCol = styled(Grid.Col)({
   minHeight: '100vh',
-  padding: '40px',
+  padding: '20px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',

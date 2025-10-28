@@ -25,9 +25,9 @@ export const ShelterStepper: FC = () => {
   };
 
   return (
-    <Flex direction='column' h='100%' gap='xl'>
+    <Flex direction='column' h='100%' gap='xxl' p={'lg'}>
       <Stepper steps={STEPPER_STEPS} active={active} onStepClick={setActive} />
-      <Flex direction='column' style={{ flex: 1, minHeight: 0 }}>
+      <Flex direction='column' gap='xxl' style={{ flex: 1, minHeight: 0 }}>
         {renderStepContent()}
       </Flex>
       <StepNavigation currentStep={active} onNext={nextStep} onPrev={prevStep} isLastStep={active === STEPPER_STEPS.length - 1} />
