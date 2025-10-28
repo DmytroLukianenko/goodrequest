@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Flex } from '@mantine/core';
 import { FiArrowLeft } from 'react-icons/fi';
@@ -8,7 +9,7 @@ import { Title, Text } from '@/components/atoms';
 import { ProjectStats } from '@/components/organisms';
 import { BackButton } from './page.styles';
 
-export default function AboutPage() {
+function AboutPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const shelterId = searchParams.get('shelter');
@@ -43,5 +44,13 @@ export default function AboutPage() {
         Žiline.
       </Text>
     </Flex>
+  );
+}
+
+export default function AboutPage() {
+  return (
+    <Suspense fallback={<div>Načítava sa...</div>}>
+      <AboutPageContent />
+    </Suspense>
   );
 }
