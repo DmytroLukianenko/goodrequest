@@ -43,6 +43,7 @@ type FormContextValue = {
   setAgreedToTerms: (agreed: boolean) => void;
   triggerValidation: () => Promise<void>;
   registerTrigger: (trigger: () => Promise<boolean>) => void;
+  resetForm: () => void;
 };
 
 const initialState: FormState = {
@@ -130,6 +131,17 @@ export const FormProvider: FC<{ children: ReactNode }> = ({ children }) => {
     await triggerRef.current();
   };
 
+  const resetForm = () => {
+    dispatch({ type: 'SET_SHELTER_ID', payload: null });
+    dispatch({ type: 'SET_SHELTER_NAME', payload: null });
+    dispatch({ type: 'SET_SEARCH_VALUE', payload: '' });
+    dispatch({ type: 'SET_AMOUNT', payload: 10 });
+    dispatch({ type: 'SET_PERSONAL_INFO', payload: { firstName: '', lastName: '', email: '', phone: '' } });
+    dispatch({ type: 'SET_SHELTER_SELECTION_TYPE', payload: 'one' });
+    dispatch({ type: 'SET_SHELTER_SELECTION_LABEL', payload: 'Finančný príspevok konkrétnemu útulku' });
+    dispatch({ type: 'SET_AGREED_TO_TERMS', payload: false });
+  };
+
   return (
     <FormContext.Provider
       value={{
@@ -145,6 +157,7 @@ export const FormProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setAgreedToTerms,
         triggerValidation,
         registerTrigger,
+        resetForm,
       }}
     >
       {children}

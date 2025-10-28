@@ -107,7 +107,7 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
             data={items}
             isLoading={isLoading}
             isError={isError}
-            required={isRequiredField}
+            // required={isRequiredField}
             error={errors.selectedShelterId?.message}
           />
         )}
@@ -119,11 +119,14 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
 
 function SelectLabel({ isRequired }: { isRequired: boolean }) {
   return (
-    <Flex gap={'md'} display={'flex'} direction={'column'}>
+    <Flex gap={'md'} direction={'column'}>
       <Title size='md' as='h2' weight='semibold'>
         O projekte
       </Title>
-      <LabelText>Útulok</LabelText> {!isRequired && <OptionalText>(Nepovinné)</OptionalText>}
+      <Flex align='center' gap='xs'>
+        <LabelText>Útulok</LabelText>
+        {!isRequired && <OptionalText>(Nepovinné)</OptionalText>}
+      </Flex>
     </Flex>
   );
 }

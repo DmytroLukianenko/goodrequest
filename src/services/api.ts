@@ -3,10 +3,7 @@ import { SheltersResponse, SheltersQueryParams, ContributeRequest, ContributeRes
 const API_BASE_URL = 'https://frontend-assignment-api.goodrequest.dev/api/v1';
 
 export class ApiError extends Error {
-  constructor(
-    message: string,
-    public status: number,
-  ) {
+  constructor(message: string, public status: number) {
     super(message);
     this.name = 'ApiError';
   }

@@ -6,3 +6,4 @@ export { AmountButton } from './AmountButton';
 export { AmountInput } from './AmountInput';
 export { Button } from './Button';
 export { Checkbox } from './Checkbox';
+export { ToastMessage } from './ToastMessage';

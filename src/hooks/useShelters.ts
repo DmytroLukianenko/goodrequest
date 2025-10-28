@@ -6,7 +6,7 @@ export const SHELTERS_QUERY_KEY = 'shelters';
 
 export const useShelters = (params?: SheltersQueryParams): UseQueryResult<Shelter[], Error> => {
   return useQuery({
-    queryKey: [SHELTERS_QUERY_KEY, params?.search] as const,
+    queryKey: params?.search ? [SHELTERS_QUERY_KEY, params.search] : [SHELTERS_QUERY_KEY],
     queryFn: async ({ signal }) => {
       const response = await sheltersApi.getShelters(params, signal);
       return response.shelters;

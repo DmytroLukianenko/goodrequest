@@ -1,22 +1,48 @@
 'use client';
-import { FC, useState, useTransition } from 'react';
+import { FC, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Flex } from '@mantine/core';
+import { toast } from 'react-toastify';
 import { Stepper, StepNavigation } from '@/components/molecules';
+import { ToastMessage } from '@/components/atoms';
 import { STEPPER_STEPS } from '@/constants/stepper.constants';
 import { ShelterSelection } from './ShelterSelection';
 import { PersonalInfo } from './PersonalInfo';
 import { Confirmation } from './Confirmation';
 import { useFormContext } from '@/contexts/FormContext';
-import { sheltersApi } from '@/services/api';
+import { useContribute } from '@/hooks';
 import type { ContributeRequest } from '@/types/api';
 
+const REDIRECT_TIMEOUT = 5;
+const TOAST_ID = 'success-toast';
+
 export const ShelterStepper: FC = () => {
+  const router = useRouter();
   const [active, setActive] = useState(0);
   const [isShelterSelectionValid, setIsShelterSelectionValid] = useState(false);
   const [isPersonalInfoValid, setIsPersonalInfoValid] = useState(false);
   const [isConfirmationValid, setIsConfirmationValid] = useState(false);
-  const [isPending, startTransition] = useTransition();
-  const { state, triggerValidation } = useFormContext();
+  const { state, triggerValidation, resetForm } = useFormContext();
+
+  const { mutate: contribute, isPending, isSuccess, data: successResponse } = useContribute();
+
+  useEffect(() => {
+    if (isSuccess && successResponse) {
+      const title = successResponse.messages[0]?.message || 'Úspech!';
+
+      const handleComplete = () => {
+        resetForm();
+        setActive(0);
+      };
+
+      toast.success(<ToastMessage title={title} initialSeconds={REDIRECT_TIMEOUT} onComplete={handleComplete} />, {
+        toastId: TOAST_ID,
+        autoClose: 1000 * 5,
+        closeButton: false,
+        draggable: false,
+      });
+    }
+  }, [isSuccess, successResponse, router, resetForm]);
 
   const canProceedToNextStep = () => {
     if (active === 0) return isShelterSelectionValid;
@@ -25,7 +51,7 @@ export const ShelterStepper: FC = () => {
     return true;
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const requestData: ContributeRequest = {
       contributors: [
         {
@@ -42,12 +68,7 @@ export const ShelterStepper: FC = () => {
       requestData.shelterID = parseInt(state.selectedShelterId, 10);
     }
 
-    try {
-      const response = await sheltersApi.contribute(requestData);
-      console.log('Contribution successful:', response);
-    } catch (error) {
-      console.error('Contribution failed:', error);
-    }
+    contribute(requestData);
   };
 
   const nextStep = async () => {
@@ -55,9 +76,7 @@ export const ShelterStepper: FC = () => {
     if (!canProceedToNextStep()) return;
 
     if (active === STEPPER_STEPS.length - 1) {
-      startTransition(() => {
-        handleSubmit();
-      });
+      handleSubmit();
     } else {
       setActive((current) => (current < STEPPER_STEPS.length - 1 ? current + 1 : current));
     }
@@ -84,7 +103,7 @@ export const ShelterStepper: FC = () => {
       <Flex direction='column' gap='xxl' style={{ flex: 1, minHeight: 0 }}>
         {renderStepContent()}
       </Flex>
-      <StepNavigation currentStep={active} onNext={nextStep} onPrev={prevStep} isLastStep={active === STEPPER_STEPS.length - 1} isLoading={isPending} />
+      <StepNavigation currentStep={active} onNext={nextStep} onPrev={prevStep} isLastStep={active === STEPPER_STEPS.length - 1} isLoading={isPending} isSubmitted={isSuccess} />
     </Flex>
   );
 };

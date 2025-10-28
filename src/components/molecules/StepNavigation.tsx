@@ -12,9 +12,10 @@ type StepNavigationProps = {
   isFirstStep?: boolean;
   isLastStep?: boolean;
   isLoading?: boolean;
+  isSubmitted?: boolean;
 };
 
-export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, onPrev, isFirstStep = false, isLastStep = false, isLoading = false }) => {
+export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, onPrev, isFirstStep = false, isLastStep = false, isLoading = false, isSubmitted = false }) => {
   const navigationButtons = [
     {
       label: 'Späť',
@@ -22,7 +23,7 @@ export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, o
       icon: <FiArrowLeft size={20} />,
       iconPosition: 'left' as const,
       onClick: onPrev,
-      disabled: isFirstStep || currentStep === 0 || isLoading,
+      disabled: isFirstStep || currentStep === 0 || isLoading || isSubmitted,
       loading: false,
     },
     {
@@ -31,7 +32,7 @@ export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, o
       icon: !isLastStep ? <FiArrowRight size={20} /> : undefined,
       iconPosition: 'right' as const,
       onClick: onNext,
-      disabled: false,
+      disabled: isSubmitted,
       loading: isLoading,
     },
   ];
