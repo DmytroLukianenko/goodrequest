@@ -9,6 +9,17 @@ import { useAboutResults } from '@/hooks';
 import { Title, Text, BackButton } from '@/components/atoms';
 import { ProjectStats } from '@/components/organisms';
 
+export const metadata = {
+  title: 'O projekte - Good Boy Foundation',
+  description: 'Nadácia Good Boy sa venuje zlepšovaniu života psov v Žiline. Zachraňujeme opustené a týrané psy, poskytujeme im lekársku starostlivosť a lásku.',
+  openGraph: {
+    title: 'O projekte - Good Boy Foundation',
+    description: 'Nadácia Good Boy sa venuje zlepšovaniu života psov v Žiline. Zachraňujeme opustené a týrané psy.',
+    type: 'website',
+    locale: 'sk_SK',
+  },
+};
+
 function AboutPageContent() {
   const t = useTranslations('AboutPage');
   const tCommon = useTranslations('Common');
@@ -28,17 +39,13 @@ function AboutPageContent() {
         {t('title')}
       </Title>
 
-      <Text>
-        {t('intro')}
-      </Text>
+      <Text>{t('intro')}</Text>
 
       {isLoading && <Text>{tCommon('loading')}</Text>}
       {isError && <Text variant='secondary'>{tCommon('error')}</Text>}
       {data && <ProjectStats contributors={data.contributors} contribution={data.contribution} />}
 
-      <Text>
-        {t('outro')}
-      </Text>
+      <Text>{t('outro')}</Text>
     </Flex>
   );
 }

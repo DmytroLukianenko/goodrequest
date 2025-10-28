@@ -91,12 +91,7 @@ export const Confirmation: FC<ConfirmationProps> = ({ onValidationChange }) => {
 
         <Divider />
 
-        <Checkbox
-          label={t('agreement')}
-          checked={agreedToTerms}
-          onChange={handleCheckboxChange}
-          error={showError ? t('agreementError') : undefined}
-        />
+        <Checkbox label={t('agreement')} checked={agreedToTerms} onChange={handleCheckboxChange} error={showError ? t('agreementError') : undefined} />
       </Stack>
     </ConfirmationContainer>
   );

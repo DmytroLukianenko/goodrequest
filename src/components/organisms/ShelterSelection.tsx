@@ -120,7 +120,7 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
 
 function SelectLabel({ isRequired }: { isRequired: boolean }) {
   const t = useTranslations('ShelterSelection');
-  
+
   return (
     <Flex gap={'md'} direction={'column'}>
       <Title size='md' as='h2' weight='semibold'>

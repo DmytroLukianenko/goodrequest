@@ -28,11 +28,7 @@ export const ShelterStepper: FC = () => {
 
   const { mutate: contribute, isPending, isSuccess, data: successResponse } = useContribute();
 
-  const STEPPER_STEPS = [
-    { label: tStepper('step1') },
-    { label: tStepper('step2') },
-    { label: tStepper('step3') },
-  ];
+  const STEPPER_STEPS = [{ label: tStepper('step1') }, { label: tStepper('step2') }, { label: tStepper('step3') }];
 
   useEffect(() => {
     if (isSuccess && successResponse) {

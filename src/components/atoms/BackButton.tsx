@@ -35,9 +35,5 @@ type BackButtonProps = {
 export const BackButton: FC<BackButtonProps> = ({ children, href = '/' }) => {
   const router = useRouter();
 
-  return (
-    <StyledButton onClick={() => router.push(href)}>
-      {children}
-    </StyledButton>
-  );
+  return <StyledButton onClick={() => router.push(href)}>{children}</StyledButton>;
 };
