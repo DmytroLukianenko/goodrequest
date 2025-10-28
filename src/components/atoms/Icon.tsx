@@ -1,3 +1,4 @@
+'use client';
 import { FC } from 'react';
 import { IconBaseProps } from 'react-icons';
 import { StyledImage } from './Icon.styles';

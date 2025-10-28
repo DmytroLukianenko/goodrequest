@@ -1,3 +1,4 @@
+'use client';
 import { FC, ReactNode } from 'react';
 import { useMantineTheme } from '@mantine/core';
 import { StyledTitle } from './Title.styles';
