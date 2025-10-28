@@ -1,4 +1,4 @@
-import { SheltersResponse, SheltersQueryParams, ContributeRequest, ContributeResponse } from '@/types/api';
+import { SheltersResponse, SheltersQueryParams, ContributeRequest, ContributeResponse, SheltersResultsResponse, SheltersResultsQueryParams } from '@/types/api';
 
 const API_BASE_URL = 'https://frontend-assignment-api.goodrequest.dev/api/v1';
 
@@ -40,6 +40,22 @@ export const sheltersApi = {
 
     if (!response.ok) {
       throw new ApiError(`Failed to submit contribution: ${response.statusText}`, response.status);
+    }
+
+    return response.json();
+  },
+
+  getSheltersResults: async (params?: SheltersResultsQueryParams, signal?: AbortSignal): Promise<SheltersResultsResponse> => {
+    const url = new URL(`${API_BASE_URL}/shelters/results`);
+
+    if (params?.search) {
+      url.searchParams.set('search', params.search);
+    }
+
+    const response = await fetch(url.toString(), { signal });
+
+    if (!response.ok) {
+      throw new ApiError(`Failed to fetch shelter results: ${response.statusText}`, response.status);
     }
 
     return response.json();

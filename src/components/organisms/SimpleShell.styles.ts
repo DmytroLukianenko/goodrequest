@@ -4,7 +4,7 @@ import { AppShell, Container, Grid, Box } from '@mantine/core';
 export const StyledAppShell = styled(AppShell)(({ theme }) => ({
   minHeight: '100vh',
   backgroundColor: theme.other?.colors?.base.surface.primary,
-  padding: '20px',
+  padding: theme.spacing?.lg,
 }));
 
 export const StyledContainer = styled(Container)({
@@ -20,34 +20,17 @@ export const StyledGrid = styled(Grid)({
   minHeight: '100vh',
 });
 
-export const LeftGridCol = styled(Grid.Col)({
+export const SingleGridCol = styled(Grid.Col)(({ theme }) => ({
   minHeight: '1024px',
-  padding: '20px',
+  padding: theme.spacing?.xxl,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-});
+}));
 
-export const ContentBox = styled(Box)<{ children?: React.ReactNode }>({
+export const ContentBox = styled(Box)<{ children?: React.ReactNode }>(({ theme }) => ({
   display: 'flex',
   flex: 1,
   justifyContent: 'center',
-});
-
-export const RightGridCol = styled(Grid.Col)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: theme.spacing?.md,
-  minHeight: '100vh',
-  overflow: 'hidden',
-
-  img: {
-    height: '100%',
-    width: 'auto',
-    maxWidth: '100%',
-    objectFit: 'contain',
-    borderRadius: theme.radius?.lg,
-    display: 'block',
-  },
+  padding: theme.spacing?.lg,
 }));

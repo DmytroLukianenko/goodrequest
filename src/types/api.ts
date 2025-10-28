@@ -34,3 +34,12 @@ export type ResponseMessage = {
 export type ContributeResponse = {
   messages: ResponseMessage[];
 };
+
+export type SheltersResultsResponse = {
+  contributors: number;
+  contribution: number;
+};
+
+export type SheltersResultsQueryParams = {
+  search?: string;
+};

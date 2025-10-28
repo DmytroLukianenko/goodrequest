@@ -5,5 +5,5 @@ export const FOOTER_ICONS = [
 
 export const FOOTER_LINKS = [
   { href: '/kontakt', label: 'Kontakt' },
-  { href: '/o-projekte', label: 'O projekte' },
+  { href: '/about', label: 'O projekte' },
 ];

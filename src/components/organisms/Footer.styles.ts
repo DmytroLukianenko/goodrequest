@@ -1,27 +1,28 @@
 import styled from '@emotion/styled';
 
-export const StyledFooter = styled.footer({
+export const StyledFooter = styled.footer(({ theme }) => ({
   display: 'flex',
-  alignItems: 'flex-start',
+  alignItems: 'flex-end',
   justifyContent: 'space-between',
   marginTop: 'auto',
-  padding: '16px 0',
-});
+  padding: `${theme.spacing?.lg} 0`,
+  borderTop: `1px solid ${theme.other?.colors?.base.content.quintarny}`,
+}));
 
-export const IconsContainer = styled.div({
+export const IconsContainer = styled.div(({ theme }) => ({
   display: 'flex',
-  gap: '12px',
+  gap: theme.spacing?.md,
   alignItems: 'center',
-});
+}));
 
-export const LinksContainer = styled.div({
+export const LinksContainer = styled.div(({ theme }) => ({
   display: 'flex',
-  gap: '16px',
+  gap: theme.spacing?.lg,
   alignItems: 'center',
-});
+}));
 
-export const ActionsRow = styled.div({
+export const ActionsRow = styled.div(({ theme }) => ({
   display: 'flex',
-  gap: '24px',
+  gap: theme.spacing?.xl,
   alignItems: 'center',
-});
+}));

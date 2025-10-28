@@ -31,8 +31,16 @@ export const ShelterStepper: FC = () => {
       const title = successResponse.messages[0]?.message || 'Úspech!';
 
       const handleComplete = () => {
+        toast.dismiss(TOAST_ID);
         resetForm();
         setActive(0);
+        
+        // Redirect to about page with shelter ID if selected
+        if (state.shelterSelectionType === 'one' && state.selectedShelterId) {
+          router.push(`/about?shelter=${state.selectedShelterId}`);
+        } else {
+          router.push('/about');
+        }
       };
 
       toast.success(<ToastMessage title={title} initialSeconds={REDIRECT_TIMEOUT} onComplete={handleComplete} />, {
@@ -42,7 +50,7 @@ export const ShelterStepper: FC = () => {
         draggable: false,
       });
     }
-  }, [isSuccess, successResponse, router, resetForm]);
+  }, [isSuccess, successResponse, router, resetForm, state.shelterSelectionType, state.selectedShelterId]);
 
   const canProceedToNextStep = () => {
     if (active === 0) return isShelterSelectionValid;
