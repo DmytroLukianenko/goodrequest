@@ -5,5 +5,4 @@ export const ShelterSelectionContainer = styled.div({
   flexDirection: 'column',
   gap: '24px',
   width: '100%',
-  minHeight: '100%',
 });

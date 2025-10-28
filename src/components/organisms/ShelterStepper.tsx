@@ -1,6 +1,7 @@
 'use client';
 import { FC, useState } from 'react';
-import { Stepper } from '@/components/molecules';
+import { Flex } from '@mantine/core';
+import { Stepper, StepNavigation } from '@/components/molecules';
 import { STEPPER_STEPS } from '@/constants/stepper.constants';
 import { ShelterSelection } from './ShelterSelection';
 
@@ -13,7 +14,7 @@ export const ShelterStepper: FC = () => {
   const renderStepContent = () => {
     switch (active) {
       case 0:
-        return <ShelterSelection currentStep={active} onNext={nextStep} onPrev={prevStep} />;
+        return <ShelterSelection />;
       case 1:
         return <div>Osobné údaje content</div>;
       case 2:
@@ -24,9 +25,12 @@ export const ShelterStepper: FC = () => {
   };
 
   return (
-    <div>
+    <Flex direction='column' h='100%' gap='xl'>
       <Stepper steps={STEPPER_STEPS} active={active} onStepClick={setActive} />
-      <div>{renderStepContent()}</div>
-    </div>
+      <Flex direction='column' style={{ flex: 1, minHeight: 0 }}>
+        {renderStepContent()}
+      </Flex>
+      <StepNavigation currentStep={active} onNext={nextStep} onPrev={prevStep} isLastStep={active === STEPPER_STEPS.length - 1} />
+    </Flex>
   );
 };
