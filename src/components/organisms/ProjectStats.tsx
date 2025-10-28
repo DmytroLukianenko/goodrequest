@@ -1,6 +1,7 @@
 'use client';
 
 import { FC } from 'react';
+import { useTranslations } from 'next-intl';
 import { StatsContainer, StatColumn, StatValue, StatLabel } from './ProjectStats.styles';
 
 type ProjectStatsProps = {
@@ -9,15 +10,17 @@ type ProjectStatsProps = {
 };
 
 export const ProjectStats: FC<ProjectStatsProps> = ({ contributors, contribution }) => {
+  const t = useTranslations('ProjectStats');
+
   return (
     <StatsContainer>
       <StatColumn>
         <StatValue>{contribution} €</StatValue>
-        <StatLabel>Celková vyzbieraná hodnota</StatLabel>
+        <StatLabel>{t('totalAmount')}</StatLabel>
       </StatColumn>
       <StatColumn>
         <StatValue>{contributors}</StatValue>
-        <StatLabel>Počet darcov</StatLabel>
+        <StatLabel>{t('donorsCount')}</StatLabel>
       </StatColumn>
     </StatsContainer>
   );

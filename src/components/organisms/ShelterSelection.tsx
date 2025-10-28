@@ -4,6 +4,7 @@ import { FC, useMemo, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDebounce } from 'use-debounce';
+import { useTranslations } from 'next-intl';
 import { SegmentedControl } from '@/components/molecules';
 import { Title, SearchSelect } from '@/components/atoms';
 import { useFormContext } from '@/contexts/FormContext';
@@ -23,6 +24,7 @@ type ShelterSelectionProps = {
 };
 
 export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange }) => {
+  const t = useTranslations('ShelterSelection');
   const { state, setSelectedShelterId, setSelectedShelterName, setSearchValue, setShelterSelectionType, setShelterSelectionLabel, registerTrigger } = useFormContext();
   const { selectedShelterId, searchValue, shelterSelectionType, amount } = state;
 
@@ -68,7 +70,7 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
   return (
     <ShelterSelectionContainer>
       <Title size='display2' as='h1' weight='bold'>
-        Vyberte si možnosť, ako chcete pomôcť
+        {t('title')}
       </Title>
       <Controller
         name='shelterSelectionType'
@@ -79,11 +81,11 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
             onChange={(value) => {
               field.onChange(value);
               setShelterSelectionType(value as 'one' | 'all');
-              setShelterSelectionLabel(value === 'one' ? 'Finančný príspevok konkrétnemu útulku' : 'Finančný príspevok celej nadácii');
+              setShelterSelectionLabel(value === 'one' ? t('labelOne') : t('labelAll'));
             }}
             data={[
-              { label: 'Prispieť konkrétnemu útulku', value: ShelterSelections.one },
-              { label: 'Prispieť celej nadácii', value: ShelterSelections.all },
+              { label: t('optionOne'), value: ShelterSelections.one },
+              { label: t('optionAll'), value: ShelterSelections.all },
             ]}
           />
         )}
@@ -94,7 +96,7 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
         render={({ field }) => (
           <SearchSelect
             label={<SelectLabel isRequired={isRequiredField} />}
-            placeholder='Vyberte útulok zo zoznamu'
+            placeholder={t('selectShelter')}
             value={field.value}
             onChange={(value) => {
               field.onChange(value);
@@ -107,7 +109,6 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
             data={items}
             isLoading={isLoading}
             isError={isError}
-            // required={isRequiredField}
             error={errors.selectedShelterId?.message}
           />
         )}
@@ -118,14 +119,16 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
 };
 
 function SelectLabel({ isRequired }: { isRequired: boolean }) {
+  const t = useTranslations('ShelterSelection');
+  
   return (
     <Flex gap={'md'} direction={'column'}>
       <Title size='md' as='h2' weight='semibold'>
-        O projekte
+        {t('aboutProject')}
       </Title>
       <Flex align='center' gap='xs'>
-        <LabelText>Útulok</LabelText>
-        {!isRequired && <OptionalText>(Nepovinné)</OptionalText>}
+        <LabelText>{t('shelter')}</LabelText>
+        {!isRequired && <OptionalText>{t('optional')}</OptionalText>}
       </Flex>
     </Flex>
   );

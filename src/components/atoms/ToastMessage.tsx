@@ -18,7 +18,8 @@ export const ToastMessage: FC<ToastMessageProps> = ({ title, initialSeconds, onC
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
-          onComplete();
+          // Используем setTimeout чтобы вызвать onComplete после завершения рендера
+          setTimeout(() => onComplete(), 0);
           return 0;
         }
         return prev - 1;

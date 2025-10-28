@@ -5,6 +5,7 @@ export { Text } from './Text';
 export { SearchSelect } from './SearchSelect';
 export { AmountButton } from './AmountButton';
 export { AmountInput } from './AmountInput';
+export { BackButton } from './BackButton';
 export { Button } from './Button';
 export { Checkbox } from './Checkbox';
 export { ToastMessage } from './ToastMessage';

@@ -2,6 +2,7 @@
 
 import { FC, useEffect, useState } from 'react';
 import { Stack, Divider } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { Title, Checkbox } from '@/components/atoms';
 import { useFormContext } from '@/contexts/FormContext';
 import { ConfirmationContainer, InfoBlock, InfoRow, InfoLabel, InfoValue } from './Confirmation.styles';
@@ -16,6 +17,7 @@ type InfoField = {
 };
 
 export const Confirmation: FC<ConfirmationProps> = ({ onValidationChange }) => {
+  const t = useTranslations('Confirmation');
   const { state, setAgreedToTerms, registerTrigger } = useFormContext();
   const [agreedToTerms, setLocalAgreedToTerms] = useState(state.agreedToTerms);
   const [showError, setShowError] = useState(false);
@@ -46,27 +48,27 @@ export const Confirmation: FC<ConfirmationProps> = ({ onValidationChange }) => {
   const fullName = `${state.personalInfo.firstName} ${state.personalInfo.lastName}`.trim();
 
   const projectFields: InfoField[] = [
-    { label: 'Forma pomoci', value: state.shelterSelectionLabel },
-    { label: 'Útulok', value: state.selectedShelterName || 'Nevybraný' },
-    { label: 'Suma príspevku', value: `${state.amount}€` },
+    { label: t('contributionType'), value: state.shelterSelectionLabel },
+    { label: t('shelter'), value: state.selectedShelterName || t('notSelected') },
+    { label: t('amount'), value: `${state.amount}€` },
   ];
 
   const personalFields: InfoField[] = [
-    { label: 'Meno a priezvisko', value: fullName },
-    { label: 'E-mail', value: state.personalInfo.email },
-    { label: 'Telefónne číslo', value: state.personalInfo.phone },
+    { label: t('fullName'), value: fullName },
+    { label: t('email'), value: state.personalInfo.email },
+    { label: t('phone'), value: state.personalInfo.phone },
   ];
 
   return (
     <ConfirmationContainer>
       <Title size='display2' as='h1' weight='bold'>
-        Skontrolujte si zadané údaje
+        {t('title')}
       </Title>
 
       <Stack gap={16}>
         <InfoBlock>
           <Title size='md' as='h2' weight='semibold'>
-            Zhrnutie
+            {t('summary')}
           </Title>
           {projectFields.map((field) => (
             <InfoRow key={field.label}>
@@ -90,10 +92,10 @@ export const Confirmation: FC<ConfirmationProps> = ({ onValidationChange }) => {
         <Divider />
 
         <Checkbox
-          label='Súhlasím so spracovaním mojich osobných údajov'
+          label={t('agreement')}
           checked={agreedToTerms}
           onChange={handleCheckboxChange}
-          error={showError ? 'Toto pole je povinné' : undefined}
+          error={showError ? t('agreementError') : undefined}
         />
       </Stack>
     </ConfirmationContainer>

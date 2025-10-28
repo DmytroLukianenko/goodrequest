@@ -3,6 +3,7 @@
 import { FC, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { Title } from '@/components/atoms';
 import { FormInput, PhoneInput } from '@/components/molecules';
 import { useFormContext } from '@/contexts/FormContext';
@@ -15,6 +16,7 @@ type PersonalInfoProps = {
 };
 
 export const PersonalInfo: FC<PersonalInfoProps> = ({ onValidationChange }) => {
+  const t = useTranslations('PersonalInfo');
   const { state, setPersonalInfo, registerTrigger } = useFormContext();
 
   const {
@@ -45,13 +47,13 @@ export const PersonalInfo: FC<PersonalInfoProps> = ({ onValidationChange }) => {
   return (
     <PersonalInfoContainer>
       <Title size='display2' as='h2' weight='bold'>
-        Potrebujeme od Vás zopár informácií
+        {t('title')}
       </Title>
 
       <div>
         <Box mb='md'>
           <Title size='md' as='h2' weight='semibold'>
-            O vás
+            {t('aboutYou')}
           </Title>
         </Box>
         <FormRow>
@@ -61,8 +63,8 @@ export const PersonalInfo: FC<PersonalInfoProps> = ({ onValidationChange }) => {
               control={control}
               render={({ field }) => (
                 <FormInput
-                  label='Meno'
-                  placeholder='Zadajte Vaše meno'
+                  label={t('firstName')}
+                  placeholder={t('firstNamePlaceholder')}
                   value={field.value}
                   onChange={(value) => {
                     field.onChange(value);
@@ -80,8 +82,8 @@ export const PersonalInfo: FC<PersonalInfoProps> = ({ onValidationChange }) => {
               control={control}
               render={({ field }) => (
                 <FormInput
-                  label='Priezvisko'
-                  placeholder='Zadajte Vaše priezvisko'
+                  label={t('lastName')}
+                  placeholder={t('lastNamePlaceholder')}
                   value={field.value}
                   onChange={(value) => {
                     field.onChange(value);
@@ -100,8 +102,8 @@ export const PersonalInfo: FC<PersonalInfoProps> = ({ onValidationChange }) => {
             control={control}
             render={({ field }) => (
               <FormInput
-                label='E-mailová adresa'
-                placeholder='Zadajte Váš e-mail'
+                label={t('email')}
+                placeholder={t('emailPlaceholder')}
                 value={field.value}
                 onChange={(value) => {
                   field.onChange(value);
@@ -120,7 +122,7 @@ export const PersonalInfo: FC<PersonalInfoProps> = ({ onValidationChange }) => {
             control={control}
             render={({ field }) => (
               <PhoneInput
-                label='Telefónne číslo'
+                label={t('phone')}
                 value={field.value}
                 onChange={(value) => {
                   field.onChange(value);

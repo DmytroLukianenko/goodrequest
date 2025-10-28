@@ -1,25 +1,24 @@
-'use client';
-
-import { useRouter } from 'next/navigation';
 import { Flex } from '@mantine/core';
 import { FiArrowLeft } from 'react-icons/fi';
 import Image from 'next/image';
-import { Title } from '@/components/atoms';
+import { getTranslations } from 'next-intl/server';
+import { Title, BackButton } from '@/components/atoms';
 import { ContactInfo } from '@/components/organisms';
-import { BackButton, ImageWrapper } from './page.styles';
+import { ImageWrapper } from './page.styles';
 
-export default function ContactsPage() {
-  const router = useRouter();
+export default async function ContactsPage() {
+  const t = await getTranslations('ContactsPage');
+  const tCommon = await getTranslations('Common');
 
   return (
     <Flex direction='column' gap='xxl' w='100%' pb={'md'}>
-      <BackButton onClick={() => router.push('/')}>
+      <BackButton>
         <FiArrowLeft size={20} />
-        <span>Späť</span>
+        <span>{tCommon('back')}</span>
       </BackButton>
 
       <Title size='display2' as='h1' weight='bold'>
-        Kontakt
+        {t('title')}
       </Title>
 
       <ContactInfo />

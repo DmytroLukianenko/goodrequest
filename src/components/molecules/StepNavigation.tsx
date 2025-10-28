@@ -3,6 +3,7 @@
 import { FC } from 'react';
 import { Flex } from '@mantine/core';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/atoms';
 
 type StepNavigationProps = {
@@ -16,9 +17,11 @@ type StepNavigationProps = {
 };
 
 export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, onPrev, isFirstStep = false, isLastStep = false, isLoading = false, isSubmitted = false }) => {
+  const t = useTranslations('Common');
+
   const navigationButtons = [
     {
-      label: 'Späť',
+      label: t('back'),
       variant: 'secondary' as const,
       icon: <FiArrowLeft size={20} />,
       iconPosition: 'left' as const,
@@ -27,7 +30,7 @@ export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, o
       loading: false,
     },
     {
-      label: isLastStep ? 'Odoslať formulár' : 'Pokračovať',
+      label: isLastStep ? t('submit') : t('continue'),
       variant: 'primary' as const,
       icon: !isLastStep ? <FiArrowRight size={20} /> : undefined,
       iconPosition: 'right' as const,

@@ -3,9 +3,9 @@ import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Flex } from '@mantine/core';
 import { toast } from 'react-toastify';
+import { useTranslations } from 'next-intl';
 import { Stepper, StepNavigation } from '@/components/molecules';
 import { ToastMessage } from '@/components/atoms';
-import { STEPPER_STEPS } from '@/constants/stepper.constants';
 import { ShelterSelection } from './ShelterSelection';
 import { PersonalInfo } from './PersonalInfo';
 import { Confirmation } from './Confirmation';
@@ -17,6 +17,8 @@ const REDIRECT_TIMEOUT = 5;
 const TOAST_ID = 'success-toast';
 
 export const ShelterStepper: FC = () => {
+  const t = useTranslations('Toast');
+  const tStepper = useTranslations('Stepper');
   const router = useRouter();
   const [active, setActive] = useState(0);
   const [isShelterSelectionValid, setIsShelterSelectionValid] = useState(false);
@@ -26,10 +28,16 @@ export const ShelterStepper: FC = () => {
 
   const { mutate: contribute, isPending, isSuccess, data: successResponse } = useContribute();
 
+  const STEPPER_STEPS = [
+    { label: tStepper('step1') },
+    { label: tStepper('step2') },
+    { label: tStepper('step3') },
+  ];
+
   useEffect(() => {
     if (isSuccess && successResponse) {
-      const title = successResponse.messages[0]?.message || 'Úspech!';
-      const description = 'Presmerovanie na stránku štatistík...';
+      const title = successResponse.messages[0]?.message || t('success');
+      const description = t('redirecting');
 
       const handleComplete = () => {
         toast.dismiss(TOAST_ID);

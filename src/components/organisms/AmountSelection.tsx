@@ -2,19 +2,21 @@
 
 import { FC } from 'react';
 import { Flex } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 import { Title, AmountButton, AmountInput } from '@/components/atoms';
 import { useFormContext } from '@/contexts/FormContext';
 
 const PRESET_AMOUNTS = [5, 10, 20, 30, 50, 100];
 
 export const AmountSelection: FC = () => {
+  const t = useTranslations('AmountSelection');
   const { state, setAmount } = useFormContext();
   const amount = state.amount;
 
   return (
     <Flex direction='column' gap={24}>
       <Title size='md' as='h3'>
-        Suma, ktorou chcem prispieť
+        {t('title')}
       </Title>
       <Flex justify={'center'}>
         <AmountInput value={amount} onChange={setAmount} />
