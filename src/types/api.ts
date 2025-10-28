@@ -10,3 +10,27 @@ export type SheltersResponse = {
 export type SheltersQueryParams = {
   search?: string;
 };
+
+export type Contributor = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+};
+
+export type ContributeRequest = {
+  contributors: Contributor[];
+  shelterID?: number;
+  value: number;
+};
+
+export type MessageType = 'SUCCESS' | 'ERROR' | 'INFO';
+
+export type ResponseMessage = {
+  message: string;
+  type: MessageType;
+};
+
+export type ContributeResponse = {
+  messages: ResponseMessage[];
+};

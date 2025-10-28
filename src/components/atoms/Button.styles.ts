@@ -14,25 +14,29 @@ export const StyledButton = styled(MantineButton)<ButtonProps>(({ theme, variant
     borderRadius: theme.radius?.sm,
     padding: `${theme.spacing?.md} ${theme.spacing?.lg}`,
     gap: theme.spacing?.sm,
-    border: 'none',
+    border: `2px solid ${isPrimary ? colors?.base.action.primary.default : colors?.base.action.secondary.default}`,
     ...typography?.md.medium,
 
     backgroundColor: isPrimary ? colors?.base.action.primary.default : colors?.base.action.secondary.default,
 
     color: isPrimary ? colors?.inverse.content.primary : colors?.base.content.secondary,
 
-    '&:hover:not([disabled])': {
+    '&:hover:not([disabled]):not([data-loading])': {
       backgroundColor: isPrimary ? colors?.base.action.primary.hover : colors?.base.action.secondary.hover,
+      borderColor: isPrimary ? colors?.base.action.primary.hover : colors?.base.action.secondary.hover,
     },
 
-    '&:active:not([disabled])': {
+    '&:active:not([disabled]):not([data-loading])': {
       backgroundColor: isPrimary ? colors?.base.action.primary.active : colors?.base.action.secondary.active,
+      borderColor: isPrimary ? colors?.base.action.primary.active : colors?.base.action.secondary.active,
     },
 
-    '&[disabled]': {
+    '&[disabled], &[data-loading]': {
       backgroundColor: isPrimary ? colors?.base.action.primary.disable : colors?.base.action.secondary.disable,
+      borderColor: isPrimary ? colors?.base.action.primary.disable : colors?.base.action.secondary.disable,
       opacity: 0.9,
       cursor: 'not-allowed',
+      pointerEvents: 'none',
     },
   };
 });

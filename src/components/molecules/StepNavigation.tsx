@@ -11,9 +11,10 @@ type StepNavigationProps = {
   onPrev: () => void;
   isFirstStep?: boolean;
   isLastStep?: boolean;
+  isLoading?: boolean;
 };
 
-export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, onPrev, isFirstStep = false, isLastStep = false }) => {
+export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, onPrev, isFirstStep = false, isLastStep = false, isLoading = false }) => {
   const navigationButtons = [
     {
       label: 'Späť',
@@ -21,14 +22,17 @@ export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, o
       icon: <FiArrowLeft size={20} />,
       iconPosition: 'left' as const,
       onClick: onPrev,
-      disabled: isFirstStep || currentStep === 0,
+      disabled: isFirstStep || currentStep === 0 || isLoading,
+      loading: false,
     },
     {
-      label: isLastStep ? 'Odoslať' : 'Pokračovať',
+      label: isLastStep ? 'Odoslať formulár' : 'Pokračovať',
       variant: 'primary' as const,
-      icon: <FiArrowRight size={20} />,
+      icon: !isLastStep ? <FiArrowRight size={20} /> : undefined,
       iconPosition: 'right' as const,
       onClick: onNext,
+      disabled: false,
+      loading: isLoading,
     },
   ];
 
@@ -41,6 +45,7 @@ export const StepNavigation: FC<StepNavigationProps> = ({ currentStep, onNext, o
           leftSection={button.iconPosition === 'left' ? button.icon : undefined}
           rightSection={button.iconPosition === 'right' ? button.icon : undefined}
           disabled={button.disabled}
+          loading={button.loading}
           onClick={button.onClick}
         >
           {button.label}
