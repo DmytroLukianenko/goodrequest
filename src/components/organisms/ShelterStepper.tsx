@@ -36,7 +36,6 @@ export const ShelterStepper: FC = () => {
         resetForm();
         setActive(0);
 
-        // Redirect to about page with shelter ID if selected
         setTimeout(() => {
           if (state.shelterSelectionType === 'one' && state.selectedShelterId) {
             router.push(`/about?shelter=${state.selectedShelterId}`);

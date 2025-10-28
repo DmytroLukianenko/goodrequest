@@ -83,7 +83,7 @@ export const StyledPhoneInputWrapper = styled.div(({ theme }) => {
         borderColor: colors?.base?.state?.error?.fg,
         backgroundColor: colors?.base.surface.tertiary,
       },
-      
+
       '.PhoneInputInput': {
         borderColor: colors?.base?.state?.error?.fg,
         backgroundColor: colors?.base.surface.tertiary,
