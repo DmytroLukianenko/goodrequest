@@ -8,6 +8,7 @@ import { FormInput, PhoneInput } from '@/components/molecules';
 import { useFormContext } from '@/contexts/FormContext';
 import { personalInfoSchema, type PersonalInfoFormData } from '@/validators/personalInfo.validator';
 import { PersonalInfoContainer, FormRow, FormField, FormFieldFull } from './PersonalInfo.styles';
+import { Box } from '@mantine/core';
 
 type PersonalInfoProps = {
   onValidationChange?: (isValid: boolean) => void;
@@ -43,15 +44,16 @@ export const PersonalInfo: FC<PersonalInfoProps> = ({ onValidationChange }) => {
 
   return (
     <PersonalInfoContainer>
-      <Title size='display2' as='h2'>
+      <Title size='display2' as='h2' weight='bold'>
         Potrebujeme od Vás zopár informácií
       </Title>
 
       <div>
-        <Title size='md' as='h3'>
-          O vás
-        </Title>
-
+        <Box mb='md'>
+          <Title size='md' as='h2' weight='semibold'>
+            O vás
+          </Title>
+        </Box>
         <FormRow>
           <FormField>
             <Controller

@@ -11,6 +11,7 @@ import { useShelters } from '@/hooks/useShelters';
 import { AmountSelection } from './AmountSelection';
 import { ShelterSelectionContainer, LabelText, OptionalText } from './ShelterSelection.styles';
 import { shelterSelectionSchema, type ShelterSelectionFormData } from '@/validators/shelterSelection.validator';
+import { Flex } from '@mantine/core';
 
 const enum ShelterSelections {
   one = 'one',
@@ -22,7 +23,7 @@ type ShelterSelectionProps = {
 };
 
 export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange }) => {
-  const { state, setSelectedShelterId, setSearchValue, setShelterSelectionType, registerTrigger } = useFormContext();
+  const { state, setSelectedShelterId, setSelectedShelterName, setSearchValue, setShelterSelectionType, setShelterSelectionLabel, registerTrigger } = useFormContext();
   const { selectedShelterId, searchValue, shelterSelectionType, amount } = state;
 
   const {
@@ -66,7 +67,7 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
 
   return (
     <ShelterSelectionContainer>
-      <Title size='display2' as='h2'>
+      <Title size='display2' as='h1' weight='bold'>
         Vyberte si možnosť, ako chcete pomôcť
       </Title>
       <Controller
@@ -78,6 +79,7 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
             onChange={(value) => {
               field.onChange(value);
               setShelterSelectionType(value as 'one' | 'all');
+              setShelterSelectionLabel(value === 'one' ? 'Finančný príspevok konkrétnemu útulku' : 'Finančný príspevok celej nadácii');
             }}
             data={[
               { label: 'Prispieť konkrétnemu útulku', value: ShelterSelections.one },
@@ -97,6 +99,8 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
             onChange={(value) => {
               field.onChange(value);
               setSelectedShelterId(value);
+              const selectedShelter = shelters?.find((s) => String(s.id) === value);
+              setSelectedShelterName(selectedShelter ? selectedShelter.name : null);
             }}
             searchValue={searchValue}
             onSearchChange={setSearchValue}
@@ -115,9 +119,11 @@ export const ShelterSelection: FC<ShelterSelectionProps> = ({ onValidationChange
 
 function SelectLabel({ isRequired }: { isRequired: boolean }) {
   return (
-    <>
-      <LabelText>Útulok</LabelText>{' '}
-      {!isRequired && <OptionalText>(Nepovinné)</OptionalText>}
-    </>
+    <Flex gap={'md'} display={'flex'} direction={'column'}>
+      <Title size='md' as='h2' weight='semibold'>
+        O projekte
+      </Title>
+      <LabelText>Útulok</LabelText> {!isRequired && <OptionalText>(Nepovinné)</OptionalText>}
+    </Flex>
   );
 }

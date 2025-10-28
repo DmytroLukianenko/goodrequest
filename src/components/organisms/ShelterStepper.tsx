@@ -5,17 +5,20 @@ import { Stepper, StepNavigation } from '@/components/molecules';
 import { STEPPER_STEPS } from '@/constants/stepper.constants';
 import { ShelterSelection } from './ShelterSelection';
 import { PersonalInfo } from './PersonalInfo';
+import { Confirmation } from './Confirmation';
 import { useFormContext } from '@/contexts/FormContext';
 
 export const ShelterStepper: FC = () => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(2);
   const [isShelterSelectionValid, setIsShelterSelectionValid] = useState(false);
   const [isPersonalInfoValid, setIsPersonalInfoValid] = useState(false);
+  const [isConfirmationValid, setIsConfirmationValid] = useState(false);
   const { triggerValidation } = useFormContext();
 
   const canProceedToNextStep = () => {
     if (active === 0) return isShelterSelectionValid;
     if (active === 1) return isPersonalInfoValid;
+    if (active === 2) return isConfirmationValid;
     return true;
   };
 
@@ -34,7 +37,7 @@ export const ShelterStepper: FC = () => {
       case 1:
         return <PersonalInfo onValidationChange={setIsPersonalInfoValid} />;
       case 2:
-        return <div>Potvrdenie content</div>;
+        return <Confirmation onValidationChange={setIsConfirmationValid} />;
       default:
         return null;
     }

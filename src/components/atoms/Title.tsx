@@ -14,7 +14,7 @@ type TitleProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 };
 
-export const Title: FC<TitleProps> = ({ children, size = 'xl', weight = 'semibold', color, as = 'h1' }) => {
+export const Title: FC<TitleProps> = ({ children, size = 'xl', weight = 'regular', color, as = 'h1' }) => {
   const theme = useMantineTheme();
   const titleColor = color || theme.other.colors.base.content.primary;
 

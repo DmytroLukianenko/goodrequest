@@ -5,3 +5,4 @@ export { SearchSelect } from './SearchSelect';
 export { AmountButton } from './AmountButton';
 export { AmountInput } from './AmountInput';
 export { Button } from './Button';
+export { Checkbox } from './Checkbox';
