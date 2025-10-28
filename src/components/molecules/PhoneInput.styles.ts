@@ -69,6 +69,8 @@ export const StyledPhoneInputWrapper = styled.div(({ theme }) => {
 
       '&:focus': {
         borderColor: colors?.base.action.primary.default,
+        backgroundColor: colors?.base.surface.tertiary,
+        color: colors?.base.content.primary,
       },
 
       '&:active': {
@@ -77,8 +79,21 @@ export const StyledPhoneInputWrapper = styled.div(({ theme }) => {
     },
 
     '&[data-error="true"]': {
-      '.PhoneInputCountry, .PhoneInputInput': {
+      '.PhoneInputCountry': {
         borderColor: colors?.base?.state?.error?.fg,
+        backgroundColor: colors?.base.surface.tertiary,
+      },
+      
+      '.PhoneInputInput': {
+        borderColor: colors?.base?.state?.error?.fg,
+        backgroundColor: colors?.base.surface.tertiary,
+        color: colors?.base.content.primary,
+
+        '&:focus': {
+          borderColor: colors?.base?.state?.error?.fg,
+          backgroundColor: colors?.base.surface.tertiary,
+          color: colors?.base.content.primary,
+        },
       },
     },
   };

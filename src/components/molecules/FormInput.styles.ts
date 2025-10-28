@@ -19,6 +19,7 @@ export const StyledTextInput = styled(TextInput)(({ theme }) => {
       borderRadius: theme.radius?.sm,
       padding: theme.spacing?.md,
       height: 'auto',
+      color: colors?.base.content.primary,
 
       '&::placeholder': {
         ...typography?.md.regular,
@@ -31,6 +32,8 @@ export const StyledTextInput = styled(TextInput)(({ theme }) => {
 
       '&:focus': {
         borderColor: colors?.base.action.primary.default,
+        backgroundColor: colors?.base.surface.tertiary,
+        color: colors?.base.content.primary,
       },
 
       '&:active': {
@@ -46,10 +49,20 @@ export const StyledTextInput = styled(TextInput)(({ theme }) => {
 
     '&[data-error="true"] .mantine-TextInput-input': {
       borderColor: colors?.base.state.error.fg,
+      backgroundColor: colors?.base.surface.tertiary,
+      color: colors?.base.content.primary,
+
+      '&:focus': {
+        borderColor: colors?.base.state.error.fg,
+        backgroundColor: colors?.base.surface.tertiary,
+        color: colors?.base.content.primary,
+      },
     },
 
     '&[data-success="true"] .mantine-TextInput-input': {
       borderColor: colors?.base.state.success.fg,
+      backgroundColor: colors?.base.surface.tertiary,
+      color: colors?.base.content.primary,
     },
   };
 });

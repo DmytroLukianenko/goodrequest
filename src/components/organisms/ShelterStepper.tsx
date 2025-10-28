@@ -29,6 +29,7 @@ export const ShelterStepper: FC = () => {
   useEffect(() => {
     if (isSuccess && successResponse) {
       const title = successResponse.messages[0]?.message || 'Úspech!';
+      const description = 'Presmerovanie na stránku štatistík...';
 
       const handleComplete = () => {
         toast.dismiss(TOAST_ID);
@@ -36,19 +37,27 @@ export const ShelterStepper: FC = () => {
         setActive(0);
 
         // Redirect to about page with shelter ID if selected
-        if (state.shelterSelectionType === 'one' && state.selectedShelterId) {
-          router.push(`/about?shelter=${state.selectedShelterId}`);
-        } else {
-          router.push('/about');
-        }
+        setTimeout(() => {
+          if (state.shelterSelectionType === 'one' && state.selectedShelterId) {
+            router.push(`/about?shelter=${state.selectedShelterId}`);
+          } else {
+            router.push('/about');
+          }
+        }, 0);
       };
 
-      toast.success(<ToastMessage title={title} initialSeconds={REDIRECT_TIMEOUT} onComplete={handleComplete} />, {
-        toastId: TOAST_ID,
-        autoClose: 1000 * 5,
-        closeButton: false,
-        draggable: false,
-      });
+      toast.success(
+        <div>
+          <ToastMessage title={title} initialSeconds={REDIRECT_TIMEOUT} onComplete={handleComplete} />
+          <div style={{ marginTop: '8px', fontSize: '14px', opacity: 0.9 }}>{description}</div>
+        </div>,
+        {
+          toastId: TOAST_ID,
+          autoClose: 1000 * 5,
+          closeButton: false,
+          draggable: false,
+        }
+      );
     }
   }, [isSuccess, successResponse, router, resetForm, state.shelterSelectionType, state.selectedShelterId]);
 

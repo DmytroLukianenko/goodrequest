@@ -10,5 +10,7 @@ export const useAboutResults = (params?: SheltersResultsQueryParams): UseQueryRe
     queryFn: async ({ signal }) => {
       return await sheltersApi.getSheltersResults(params, signal);
     },
+    staleTime: 0,
+    gcTime: 0,
   });
 };
