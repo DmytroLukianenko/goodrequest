@@ -5,7 +5,7 @@ import { StyledText } from './Text.styles';
 
 type TextVariant = 'primary' | 'secondary' | 'accent';
 
-type TextProps = {
+export type TextProps = {
   children: ReactNode;
   variant?: TextVariant;
   className?: string;
